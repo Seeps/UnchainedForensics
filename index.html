@@ -1,13 +1,474 @@
 <!DOCTYPE html>
 <html>
+<!-- Previous head and style sections remain the same -->
 <head>
-<title>Page Title</title>
+    <title>A Special Bonus Question</title>
+    <style>
+        /* Previous styles remain the same */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            overflow-x: hidden;
+        }
+        .screen {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .screen.active {
+            display: flex;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            color: #ff1493;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FFD700"><path d="M12 0l2.5 9.5L24 12l-9.5 2.5L12 24l-2.5-9.5L0 12l9.5-2.5z"/></svg>') no-repeat;
+            pointer-events: none;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 10;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255,20,147,0.4);
+        }
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            animation: floatUp 3s forwards;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+        #bonusReveal {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s;
+        }
+        #bonusReveal.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+        #musicControl {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+.music-notification {
+    position: fixed;
+    bottom: 25px; /* Aligns with the music button's bottom */
+    right: 80px; /* Adjusts to sit to the left of the music button */
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff1493;
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    animation: fade-in 1s ease-in-out;
+}
+
+.music-notification:hover {
+    transform: scale(1.1);
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+        .footer {
+            position: fixed;  /* Keeps footer in place */
+            bottom: 20px;     /* Distance from bottom of page */
+            left: 20px;       /* Distance from left side of page */
+            color: white;     /* Changed to white text */
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+    <button id="musicControl" onclick="toggleMusic()">🔈</button>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.uppbeat.io/audio-files/48c197ea701573c6a391cd76382175f7/9e04725e6c66fd8376254b4d4850bfd3/b8eeb842e513fa261f1769fabda9252d/STREAMING-french-kiss-albert-behar-main-version-17820-02-30.mp3" type="audio/mpeg">
+    </audio>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+    <div id="screen1" class="screen active">
+        <div class="container">
+            <h1 class="floating">Hey Kenzie! 👋</h1>
+            <p>Before I ask you something special, I have a few quick questions...</p>
+            <button class="button" onclick="nextScreen(2)">Ready to begin?</button>
+        </div>
+    </div>
 
+    <div id="screen2" class="screen">
+        <div class="container">
+            <h1>Question 1 🤔</h1>
+            <p>Do you believe in taking chances?</p>
+            <button class="button" onclick="nextScreen(3)">Absolutely!</button>
+            <button class="button" onclick="nextScreen(3)">Sometimes...</button>
+            <div class="progress-bar">
+                <div class="progress" style="width: 25%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen3" class="screen">
+        <div class="container">
+            <h1>Question 2 😮</h1>
+            <p>Would you say you enjoy pleasant surprises?</p>
+            <button class="button" onclick="nextScreen(4)">Certainly!</button>
+            <button class="button" onclick="nextScreen(4)">Of course!</button>
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen4" class="screen">
+        <div class="container">
+            <h1>Final Question 🎲</h1>
+            <p>Are you ready for a special BONUS round?</p>
+            <button class="button" onclick="nextScreen(5)">Show me!</button>
+            <div class="progress-bar">
+                <div class="progress" style="width: 75%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen5" class="screen">
+        <div class="container">
+            <div id="bonusReveal">🌟 BONUS ROUND! 🌟</div>
+            <h1 class="floating">Kenzie...</h1>
+            <p>I'm incredibly fortunate to have met you and would love to take you on a date</p>
+		<p style="margin-bottom:0;">😳</p>
+		<p style="margin-top:0;">👉👈</p>
+            <button class="button" id="yesBtn" onclick="handleResponse(true)">Yes!</button>
+            <button class="button" id="noBtn" onmouseover="moveButton()" onclick="handleResponse(false)">No</button>
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen6" class="screen">
+        <div class="container">
+            <h1>🎉 YES! 🎉</h1>
+            <p>Get ready for an amazing time together! ❤️</p>
+            <p>(Seriously, please let me know if you agree, I didn't automate this part 😭)</p>
+            <div id="celebrationHearts" class="hearts"></div>
+        <div class="date-locations flex flex-col md:flex-row gap-4 mt-8">
+            <div class="location-card flex-1 p-4 rounded-lg bg-white shadow-lg">
+                <h2 class="text-xl font-bold mb-2">🌲 First Stop: Little Tract Trail</h2>
+                <div class="map-container w-full h-64 rounded-lg overflow-hidden">
+                    <!-- Replace GOOGLE_MAPS_EMBED_URL with your restaurant's embed URL -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d185388.27343170464!2d-80.412418021875!3d43.446152999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b8676b42e373f%3A0xf6b69d4048cbc578!2sLittle%20Tract%20-%20Main%20Entrance!5e0!3m2!1sen!2sca!4v1731730887037!5m2!1sen!2sca"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="location-card flex-1 p-4 rounded-lg bg-white shadow-lg">
+                <h2 class="text-xl font-bold mb-2">🍽️ Second Stop: RÉUNION Bistro</h2>
+                <div class="map-container w-full h-64 rounded-lg overflow-hidden">
+                    <!-- Replace GOOGLE_MAPS_EMBED_URL with your trail's embed URL -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d131078.87567169883!2d-80.47175977626392!3d43.45096551671945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b8326a3eb35b3%3A0xd830f8f3f2caba4b!2sR%C3%89UNION%20bistro!5e0!3m2!1sen!2sca!4v1731730422314!5m2!1sen!2sca"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+        const audio = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        // Show the first screen initially
+        document.getElementById('screen1').classList.add('active');
+
+        // Function to reset the "No" button position
+        function resetNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn) {
+                noBtn.style.position = 'static';
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+            }
+        }
+
+        // Reset button position when page loads
+        window.onload = resetNoButton;
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                document.getElementById('musicControl').innerHTML = '🔈';
+            } else {
+                audio.play();
+                document.getElementById('musicControl').innerHTML = '🔊';
+            }
+            musicPlaying = !musicPlaying;
+        }
+
+        function createSparkles() {
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            }, 200);
+        }
+
+        function nextScreen(num) {
+            // Hide current screen
+            document.getElementById(`screen${currentScreen}`).style.display = 'none';
+            document.getElementById(`screen${currentScreen}`).classList.remove('active');
+            
+            // Show next screen
+            document.getElementById(`screen${num}`).style.display = 'flex';
+            document.getElementById(`screen${num}`).classList.add('active');
+            
+            currentScreen = num;
+            
+            // Reset No button position when showing the final question
+            if (num === 5) {
+                resetNoButton();
+                setTimeout(() => {
+                    document.getElementById('bonusReveal').classList.add('show');
+                    createSparkles();
+                }, 500);
+            }
+        }
+
+let moveButtonEnabled = false;
+
+function moveButton() {
+    if (moveButtonEnabled) {
+        const noBtn = document.getElementById('noBtn');
+        const maxX = window.innerWidth - 200;
+        const maxY = window.innerHeight - 100;
+
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top = newY + 'px';
+    }
+}
+
+// Enable movement and move the button immediately on the first click
+document.getElementById('noBtn').addEventListener('click', function () {
+    if (!moveButtonEnabled) {
+        moveButtonEnabled = true;
+        moveButton(); // Move the button on the first click
+    }
+});
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.innerHTML = '❤️';
+            heart.style.fontSize = `${20 + Math.random() * 30}px`;
+            return heart;
+        }
+
+        function celebrate() {
+            const heartsContainer = document.getElementById('celebrationHearts');
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = createHeart();
+                    heartsContainer.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+function handleResponse(isYes) {
+    const audio = document.getElementById('bgMusic'); // Get the audio element
+
+    if (isYes) {
+        // Revert back to the original track
+        audio.src = 'https://cdn.uppbeat.io/audio-files/48c197ea701573c6a391cd76382175f7/9e04725e6c66fd8376254b4d4850bfd3/b8eeb842e513fa261f1769fabda9252d/STREAMING-french-kiss-albert-behar-main-version-17820-02-30.mp3';
+        audio.play();
+
+        // Proceed to the next screen and celebrate
+        nextScreen(6);
+        celebrate();
+        createSparkles();
+    } else {
+        // Change the audio source to the "No" response track
+        audio.src = 'https://cdn.itemfix.com/2021/Dec/10/ItemFix-dot-com-MyHeartWillGoOnterriblerecordermeme_1639170549.mp3.61b3c1fd8d479.mp3?secure=ZzRIgRHPV2AJhCcHKFTVEg==,1732144871'; // Replace with your new audio URL
+        audio.play();
+    }
+}
+
+        // Start sparkles
+        createSparkles();
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@latest/dist/fireworks.js"></script>
+<script>
+    function playFireworksSound() {
+    const sound = new Audio('https://www.myinstants.com/media/sounds/fireworks.mp3');
+    sound.volume = 0.5; // Adjust volume as needed
+    sound.play().catch(error => console.log('Error playing fireworks sound:', error));
+}
+
+function launchFireworks() {
+    const container = document.body;
+    const fireworks = new Fireworks(container, {
+        speed: 1,
+        acceleration: 1.01,
+        friction: 0.95,
+        gravity: 1.5,
+        particles: 100,
+        trace: 3,
+    });
+    fireworks.start();
+    playFireworksSound(); // Trigger the sound manually
+
+    // Stop fireworks after 5 seconds
+    setTimeout(() => fireworks.stop(), 5000);
+}
+
+    function celebrate() {
+        const heartsContainer = document.getElementById('celebrationHearts');
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const heart = createHeart();
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }, i * 100);
+        }
+        launchFireworks(); // Launch fireworks when celebrating
+    }
+</script>
+<div id="musicNotification" class="music-notification" onclick="notifyClickMusic()">
+    EXTREMELY cool 🎵 here 👉
+</div>
+<script>
+function notifyClickMusic() {
+    document.getElementById('musicNotification').style.display = 'none'; // Hide notification after clicking
+}
+</script>
+    <div class="footer">
+        Crafted by Dee with hope, wit, and a dash of courage 🤞
+    </div>
 </body>
 </html>
-
