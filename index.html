@@ -40,8 +40,14 @@
             width: 90%;
             color: #333;
             position: relative;
-            overflow: hidden;
+            overflow: scroll;
         }
+.screen {
+    scrollbar-width: none; /* Firefox */
+}
+.screen::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
         h1 {
             color: #ff1493;
             margin-bottom: 1.5rem;
