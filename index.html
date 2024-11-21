@@ -2,6 +2,7 @@
 <html>
 <!-- Previous head and style sections remain the same -->
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Bonus Question</title>
     <style>
         /* Previous styles remain the same */
@@ -182,6 +183,64 @@
             color: white;     /* Changed to white text */
             font-size: 14px;
         }
+    /* Responsive base styles */
+    body {
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+            max-width: 100%;
+        }
+
+        .date-locations {
+            flex-direction: column;
+        }
+
+        .location-card {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Ensure content is centered and readable on smaller screens */
+    .container {
+        max-width: 600px;
+        width: 95%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Flexible map containers */
+    .map-container {
+        width: 100%;
+        height: 200px;
+        background-color: #f0f0f0;
+    }
+
+    /* Responsive progress bar */
+    .progress-bar {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    /* Responsive location cards */
+    .date-locations {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .location-card {
+        flex: 1;
+        min-width: 250px;
+    }
     </style>
 </head>
 <body>
@@ -256,7 +315,7 @@
             <div id="celebrationHearts" class="hearts"></div>
         <div class="date-locations flex flex-col md:flex-row gap-4 mt-8">
             <div class="location-card flex-1 p-4 rounded-lg bg-white shadow-lg">
-                <h2 class="text-xl font-bold mb-2">🌲 First Stop: Little Tract Trail</h2>
+                <h2 class="text-xl font-bold mb-2">🌲 First Stop:<br>Little Tract Trail</h2>
                 <div class="map-container w-full h-64 rounded-lg overflow-hidden">
                     <!-- Replace GOOGLE_MAPS_EMBED_URL with your restaurant's embed URL -->
                     <iframe 
@@ -272,7 +331,7 @@
             </div>
             
             <div class="location-card flex-1 p-4 rounded-lg bg-white shadow-lg">
-                <h2 class="text-xl font-bold mb-2">🍽️ Second Stop: RÉUNION Bistro</h2>
+                <h2 class="text-xl font-bold mb-2">🍽️ Second Stop:<br>RÉUNION Bistro</h2>
                 <div class="map-container w-full h-64 rounded-lg overflow-hidden">
                     <!-- Replace GOOGLE_MAPS_EMBED_URL with your trail's embed URL -->
                     <iframe 
@@ -413,7 +472,7 @@ function handleResponse(isYes) {
         createSparkles();
     } else {
         // Change the audio source to the "No" response track
-        audio.src = 'https://cdn.itemfix.com/2021/Dec/10/ItemFix-dot-com-MyHeartWillGoOnterriblerecordermeme_1639170549.mp3.61b3c1fd8d479.mp3?secure=ZzRIgRHPV2AJhCcHKFTVEg==,1732144871'; // Replace with your new audio URL
+        audio.src = 'https://github.com/Seeps/UnchainedForensics/raw/refs/heads/main/My%20Heart%20Will%20Go%20On%20-%20Recorder%20By%20Candle%20Light%20by%20Matt%20Mulholland.mp3'; // Replace with your new audio URL
         audio.play();
     }
 }
@@ -470,5 +529,6 @@ function notifyClickMusic() {
     <div class="footer">
         Crafted by Dee with hope, wit, and a dash of courage 🤞
     </div>
+
 </body>
 </html>
