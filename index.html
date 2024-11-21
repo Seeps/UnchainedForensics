@@ -536,6 +536,16 @@ function notifyClickMusic() {
     document.getElementById('musicNotification').style.display = 'none'; // Hide notification after clicking
 }
 </script>
+<script>
+function hideFooter() {
+    const footer = document.querySelector('.footer');
+    if (footer && window.innerWidth <= 768) { // Adjust breakpoint as needed
+        footer.style.display = 'none'; // Hides the footer
+    }
+}
+const yesButton = document.getElementById('yesBtn');
+yesButton.addEventListener('click', hideFooter);
+</script>
     <div class="footer">
         Crafted by Dee with hope, wit, and a dash of courage 🤞
     </div>
