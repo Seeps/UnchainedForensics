@@ -11,7 +11,7 @@
             margin: 0;
             min-height: 100vh;
             background: linear-gradient(45deg, #ff69b4, #ff1493);
-            overflow-x: hidden;
+            overflow: hidden;
         }
         .screen {
             display: none;
@@ -246,7 +246,7 @@
 <body>
     <button id="musicControl" onclick="toggleMusic()">🔈</button>
     <audio id="bgMusic" loop>
-        <source src="https://cdn.uppbeat.io/audio-files/48c197ea701573c6a391cd76382175f7/9e04725e6c66fd8376254b4d4850bfd3/b8eeb842e513fa261f1769fabda9252d/STREAMING-french-kiss-albert-behar-main-version-17820-02-30.mp3" type="audio/mpeg">
+        <source src="https://github.com/Seeps/UnchainedForensics/raw/refs/heads/main/frenchkiss.mp3" type="audio/mpeg">
     </audio>
 
     <div id="screen1" class="screen active">
@@ -361,9 +361,9 @@
         function resetNoButton() {
             const noBtn = document.getElementById('noBtn');
             if (noBtn) {
-                noBtn.style.position = 'static';
-                noBtn.style.left = '';
-                noBtn.style.top = '';
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseover', moveButton); // For desktop
+noBtn.addEventListener('touchstart', moveButton); // For mobile
             }
         }
 
@@ -417,16 +417,16 @@ let moveButtonEnabled = false;
 
 function moveButton() {
     if (moveButtonEnabled) {
-        const noBtn = document.getElementById('noBtn');
-        const maxX = window.innerWidth - 200;
-        const maxY = window.innerHeight - 100;
+    const noBtn = document.getElementById('noBtn');
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
 
-        const newX = Math.random() * maxX;
-        const newY = Math.random() * maxY;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
 
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = newX + 'px';
-        noBtn.style.top = newY + 'px';
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = `${newX}px`;
+    noBtn.style.top = `${newY}px`;
     }
 }
 
@@ -462,8 +462,8 @@ function handleResponse(isYes) {
     const audio = document.getElementById('bgMusic'); // Get the audio element
 
     if (isYes) {
-        // Revert back to the original track
-        audio.src = 'https://cdn.uppbeat.io/audio-files/48c197ea701573c6a391cd76382175f7/9e04725e6c66fd8376254b4d4850bfd3/b8eeb842e513fa261f1769fabda9252d/STREAMING-french-kiss-albert-behar-main-version-17820-02-30.mp3';
+        // LOTR
+        audio.src = 'https://github.com/Seeps/UnchainedForensics/raw/refs/heads/main/lotr.mp3';
         audio.play();
 
         // Proceed to the next screen and celebrate
@@ -484,7 +484,7 @@ function handleResponse(isYes) {
 <script src="https://cdn.jsdelivr.net/npm/fireworks-js@latest/dist/fireworks.js"></script>
 <script>
     function playFireworksSound() {
-    const sound = new Audio('https://www.myinstants.com/media/sounds/fireworks.mp3');
+    const sound = new Audio('https://github.com/Seeps/UnchainedForensics/raw/refs/heads/main/fireworks.mp3');
     sound.volume = 0.5; // Adjust volume as needed
     sound.play().catch(error => console.log('Error playing fireworks sound:', error));
 }
