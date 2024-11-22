@@ -166,7 +166,8 @@
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: transform 0.3s, opacity 0.3s;
+    transition: opacity 0.5s ease; /* Smooth fade-out */
+    opacity: 1; /* Fully visible by default */
     animation: fade-in 1s ease-in-out;
 }
 
@@ -545,6 +546,21 @@ function hideFooter() {
 }
 const yesButton = document.getElementById('yesBtn');
 yesButton.addEventListener('click', hideFooter);
+</script>
+<script>
+function hideMusicNotification() {
+    const musicNotification = document.getElementById('musicNotification');
+    if (musicNotification) {
+        setTimeout(() => {
+            musicNotification.classList.add('hidden'); // Add the fade-out class
+            setTimeout(() => {
+                musicNotification.style.display = 'none'; // Remove it completely after fade-out
+            }, 500); // Match the CSS transition duration
+        }, 3000);
+    }
+}
+
+window.onload = hideMusicNotification;
 </script>
     <div class="footer">
         Crafted by Dee with hope, wit, and a dash of courage 🤞
